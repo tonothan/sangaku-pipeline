@@ -7,3 +7,10 @@ There is an inherent challenge to the project: unlike most digitization initiati
 In this project, we would like to present a pilot for such a pipeline: from data collection to database management and the automated creation of IIIF manifests. 
 The requirements are as follows: the submission of data should be possible from anywhere and user-friendly; there should be a window for control between the submission of data and its conversion to a IIIF manifest; the single steps of the process should be automated wherever feasible in order to limit manual intervention to a minimum. 
 The pilot presented uses a Google Form for data submission and MySQL for database management; the orchestrator is written in Golang. With a view to the future, the final deliverable will be a docker container allowing the use of alternative interfaces or databases. 
+
+## Database auth
+
+To connect to the database create a `.env` file containing the following data
+```
+MONGOURI=mongodb+srv://{USERNAME}:{PASSWORD}@{DATABASE-NAME}.mongodb.net/?retryWrites=true&w=majority
+```
