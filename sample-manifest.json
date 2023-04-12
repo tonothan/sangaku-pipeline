@@ -22,10 +22,10 @@
       },
       "value": {
         "en": [
-          "Hisaki Kamiyama"
+          "sample_creator"
         ],
 		"jp": [
-			"神山久明"
+			"sample_作者"
 		]
       }
 	  
@@ -41,28 +41,12 @@
       },
       "value": {
         "en": [
-          "Hachinohe"
+          "sample_location"
         ],
         "jp": [
-          "八戸市"
-        ]
-      }
-	  "label": {
-        "en": [
-          "Location"
-        ],
-        "jp": [
-          "場所"
+          "sample_場所"
         ]
       },
-      "value": {
-        "en": [
-          "Hachinohe"
-        ],
-        "jp": [
-          "八戸市"
-        ]
-      }
 	  "label": {
 		"en": [
 		  "Dedication year"
@@ -73,9 +57,9 @@
 	  },
 	  "value": {
 		"none": [
-		  "1892"
+		  "sample_year"
 		]
-	  }
+	  },
 	  "label": {
         "en": [
           "Dimensions"
@@ -86,9 +70,9 @@
       },
 	  "value": {
 		"none": [
-		  "Width x length"
+		  "sample_dimensions"
 		]
-	  }
+	  },
 	  "label": {
         "en": [
           "Problem"
@@ -99,12 +83,12 @@
       },
       "value": {
         "en": [
-          "But what did the circle say"
+          "sample_problem"
         ],
         "jp": [
-          "丸は、何を話していた"
+          "sample_問題"
         ]
-      }
+      },
 	  "label": {
         "en": [
           "Material"
@@ -115,12 +99,12 @@
       },
       "value": {
         "en": [
-          "Wood"
+          "sample_material"
         ],
         "jp": [
-          "木製"
+          "sample_物質"
         ]
-      }
+      },
 	  "label": {
         "en": [
           "School"
@@ -131,12 +115,12 @@
       },
       "value": {
         "en": [
-          "Florence Math school"
+          "sample_school"
         ],
         "jp": [
-          "木製"
+          "sample_校"
         ]
-      }
+      },
 	  "label": {
         "en": [
           "Tags"
@@ -147,26 +131,26 @@
       },
       "value": {
         "en": [
-          "circle, triangle"
+          "sample_tags"
         ],
         "jp": [
-          "丸、三角"
+          "sample_タグ"
         ]
-      }
+      },
 	  "label": {
         "en": [
           "References"
         ],
         "jp": [
-          "タグ"
+          "書誌"
         ]
       },
       "value": {
         "en": [
-          "Nanshu-ji temple guide"
+          "sample_references"
         ],
         "jp": [
-          ""
+          "sample_書誌 "
         ]
       }
 	    
