@@ -1,8 +1,9 @@
 package main
 
 import (
-	"gin-mongo-api/configs"
-	"gin-mongo-api/routes"
+	"pipeline/configs"
+	"pipeline/routes"
+
 	"github.com/gin-gonic/gin"
 )
 
@@ -11,7 +12,7 @@ func main() {
 
 	configs.ConnectDB()
 
-	routes.ManifestRoutes(router)
+	routes.SangakuRoutes(router)
 
 	router.Run("localhost:6000")
 }

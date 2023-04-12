@@ -2,10 +2,10 @@ package controllers
 
 import (
 	"context"
-	"gin-mongo-api/configs"
-	"gin-mongo-api/models"
-	"gin-mongo-api/responses"
 	"net/http"
+	"pipeline/configs"
+	"pipeline/models"
+	"pipeline/responses"
 	"time"
 
 	"github.com/gin-gonic/gin"

@@ -1,4 +1,4 @@
-module gin-mongo-api
+module pipeline
 
 go 1.20
 
