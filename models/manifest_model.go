@@ -14,8 +14,8 @@ type Manifest struct {
 	Problem_en string             `json:"problem_en,omitempty" validate:"required"`
 	Problem_jp string             `json:"problem_jp,omitempty" validate:"required"`
 	Dimensions string             `json:"dimensions,omitempty" validate:"required"`
-	Material string	 	      `json:"material_en,omitempty" validate:"required"`
-	Material string	 	      `json:"material_jp,omitempty" validate:"required"`
+	Material_en string	 	      `json:"material_en,omitempty" validate:"required"`
+	Material_jp string	 	      `json:"material_jp,omitempty" validate:"required"`
 	Formula_en string	 	      `json:"formula_en,omitempty" validate:"required"`
 	Formula_jp string	 	      `json:"formula_jp,omitempty" validate:"required"`
 	Solution_en string	 	      `json:"solution_en,omitempty" validate:"required"`
@@ -25,5 +25,8 @@ type Manifest struct {
 	Author_en string	 	      `json:"author_en,omitempty" validate:"required"`
 	Author_jp string	 	      `json:"author_jp,omitempty" validate:"required"`
 	Accessible boolean 	 	      `json:"accessible,omitempty" validate:"required"`
-	Lit_sources string	 	      `json:"author_jp,omitempty" validate:"required"`
+	References_en string	 	      `json:"references_en,omitempty" validate:"required"`
+	References_jp string	 	      `json:"references_jp,omitempty" validate:"required"`
+	Tags_en string	 	      `json:"tags_en,omitempty" validate:"required"`
+	Tags_jp string	 	      `json:"tags_jp,omitempty" validate:"required"`
 }
