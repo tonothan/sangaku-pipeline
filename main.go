@@ -14,5 +14,5 @@ func main() {
 
 	routes.SangakuRoutes(router)
 
-	router.Run("localhost:6000")
+	router.Run(":8080")
 }

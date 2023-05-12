@@ -17,6 +17,14 @@ import (
 var sangakuCollection *mongo.Collection = configs.GetCollection(configs.DB, "sangakus")
 var sangakuValidate = validator.New()
 
+func Ping() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		c.JSON(200, gin.H{
+			"data": "Hello world",
+		})
+	}
+}
+
 func CreateSangaku() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
@@ -78,24 +86,10 @@ func CreateSangaku() gin.HandlerFunc {
 
 func UploadImages() gin.HandlerFunc {
 	return func(c *gin.Context) {
-		form, err := c.MultipartForm()
-		if err != nil {
-			c.String(http.StatusBadRequest, "get form err: %s", err.Error())
-			return
-		}
-		files := form.Value["upload[]"]
 
-		print(files)
+		file, _ := c.FormFile("data")
 
-		/*
-			for _, file := range files {
-				filename := filepath.Base(file)
-				if err := c.SaveUploadedFile(file["filename"], filename); err != nil {
-					c.String(http.StatusBadRequest, "upload file err: %s", err.Error())
-					return
-				}
-			}*/
+		print(file)
 
-		c.String(http.StatusOK, "Uploaded successfully")
 	}
 }
