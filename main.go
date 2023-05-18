@@ -1,8 +1,7 @@
 package main
 
 import (
-	"pipeline/configs"
-	"pipeline/routes"
+	"tonothan/sangaku-pipeline-server/routes"
 
 	"github.com/gin-gonic/gin"
 )
@@ -10,9 +9,8 @@ import (
 func main() {
 	router := gin.Default()
 
-	configs.ConnectDB()
-
-	routes.SangakuRoutes(router)
+	// Run routes
+	routes.ManifestRoutes(router)
 
 	router.Run(":8080")
 }

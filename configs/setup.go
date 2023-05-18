@@ -11,6 +11,7 @@ import (
 )
 
 func ConnectDB() *mongo.Client {
+
 	client, err := mongo.NewClient(options.Client().ApplyURI(EnvMongoURI()))
 	if err != nil {
 		log.Fatal(err)
@@ -22,20 +23,19 @@ func ConnectDB() *mongo.Client {
 		log.Fatal(err)
 	}
 
-	//ping the database
+	// Try to ping DB
 	err = client.Ping(ctx, nil)
 	if err != nil {
 		log.Fatal(err)
 	}
+
 	fmt.Println("Connected to MongoDB")
 	return client
 }
 
-// Client instance
+// Create the instance of client
 var DB *mongo.Client = ConnectDB()
 
-// getting database collections
 func GetCollection(client *mongo.Client, collectionName string) *mongo.Collection {
-	collection := client.Database("sangaku_collection").Collection(collectionName)
-	return collection
+	return client.Database(EnvMongoCollection()).Collection(collectionName)
 }
