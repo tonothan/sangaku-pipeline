@@ -1,6 +1,11 @@
 package models
 
-type Manifest struct {
-	UUID  string `json:"uuid"`
-	Label string `json:"label"`
+type ManifestData struct {
+	UUID   string  `form:"uuid"`
+	Label  string  `form:"label"`
+	Images []Image `form:"images,omitempty"`
+}
+
+type Image struct {
+	ID string `json:"id"`
 }

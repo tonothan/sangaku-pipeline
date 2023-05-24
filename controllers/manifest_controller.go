@@ -22,7 +22,7 @@ var manifestValidate = validator.New()
 func Ping() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		c.JSON(http.StatusOK, gin.H{
-			"data": "pong",
+			"data": "pong-1",
 		})
 	}
 }
@@ -30,11 +30,11 @@ func Ping() gin.HandlerFunc {
 func CreateManifestMetadata() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
-		var manifest models.Manifest
+		var manifest models.ManifestData
 		defer cancel()
 
 		// Validate the request
-		if err := c.BindJSON(&manifest); err != nil {
+		if err := c.ShouldBind(&manifest); err != nil {
 			c.JSON(http.StatusBadRequest, responses.ManifestResponse{Status: http.StatusBadRequest, Message: "Error", Data: map[string]interface{}{"data": err.Error()}})
 			return
 		}
@@ -48,10 +48,33 @@ func CreateManifestMetadata() gin.HandlerFunc {
 		manifestId := uuid.NewString()
 
 		// Create the new manifest
-		newManifest := models.Manifest{
+		newManifest := models.ManifestData{
 			UUID:  manifestId,
 			Label: manifest.Label,
 		}
+
+		var images []models.Image
+
+		// Images
+		form, err := c.MultipartForm()
+		if err != nil {
+			c.String(http.StatusBadRequest, "get form err: %s", err.Error())
+			return
+		}
+		files := form.File["files"]
+
+		for _, file := range files {
+			var image models.Image
+			image.ID = uuid.NewString()
+			images = append(images, image)
+
+			if err := c.SaveUploadedFile(file, configs.EnvImageStorePath()+image.ID+filepath.Ext(file.Filename)); err != nil {
+				c.String(http.StatusBadRequest, "upload file err: %s", err.Error())
+				return
+			}
+		}
+
+		newManifest.Images = images
 
 		// Insert into db
 		result, err := manifestCollection.InsertOne(ctx, newManifest)
@@ -60,26 +83,7 @@ func CreateManifestMetadata() gin.HandlerFunc {
 			return
 		}
 
-		c.JSON(http.StatusCreated, responses.ManifestResponse{Status: http.StatusCreated, Message: "Success!", Data: map[string]interface{}{"mongodb-id": result.InsertedID, "uuid": manifestId}})
-	}
-}
-
-func UploadImage() gin.HandlerFunc {
-	return func(c *gin.Context) {
-		// Source
-		file, err := c.FormFile("file")
-		if err != nil {
-			c.JSON(http.StatusBadRequest, responses.ManifestResponse{Status: http.StatusBadRequest, Message: "Error", Data: map[string]interface{}{"data": err.Error()}})
-			return
-		}
-
-		filename := filepath.Base(file.Filename)
-		if err := c.SaveUploadedFile(file, configs.EnvImageStorePath()+filename); err != nil {
-			c.JSON(http.StatusBadRequest, responses.ManifestResponse{Status: http.StatusBadRequest, Message: "Error", Data: map[string]interface{}{"data": err.Error()}})
-			return
-		}
-
-		c.JSON(http.StatusCreated, responses.ManifestResponse{Status: http.StatusCreated, Message: "Success", Data: map[string]interface{}{"data": filename}})
+		c.JSON(http.StatusCreated, responses.ManifestResponse{Status: http.StatusCreated, Message: "Success!", Data: map[string]interface{}{"id": result.InsertedID, "data": newManifest}})
 	}
 }
 
@@ -89,7 +93,7 @@ func GetManifestMetadata() gin.HandlerFunc {
 		ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 		manifestId := c.Param("manifestId")
 
-		var manifest models.Manifest
+		var manifest models.ManifestData
 		defer cancel()
 
 		err := manifestCollection.FindOne(ctx, bson.M{"uuid": manifestId}).Decode(&manifest)
