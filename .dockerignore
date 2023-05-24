@@ -2,3 +2,5 @@ README.md
 *.env
 .vscode/*
 .git/*
+Dockerfile
+__debug_bin

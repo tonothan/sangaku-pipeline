@@ -11,7 +11,7 @@ RUN go mod download
 
 COPY . ./
 
-RUN go build -o /sangaku
+RUN go build -buildvcs=false -o /sangaku
 RUN chmod +x /sangaku
 
 EXPOSE $PORT
